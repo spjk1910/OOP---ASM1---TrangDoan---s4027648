@@ -2,7 +2,7 @@ package Module;
 
 import Utils.Date;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 public class Claim
 {
@@ -11,13 +11,13 @@ public class Claim
     private String insuredPerson;
     private String cardNumber;
     private Date examDate;
-    private ArrayList<String> documents;
+    private Set<String> documents;
     private double claimAmount;
     private ClaimStatus status;
     private ReceiverBankingInfo receiverBankingInfo;
 
     public Claim(String id, Date claimDate, String insuredPerson, String cardNumber,
-                 Date examDate, ArrayList<String> documents, double claimAmount,
+                 Date examDate, Set<String> documents, double claimAmount,
                  ClaimStatus status, ReceiverBankingInfo receiverBankingInfo)
     {
         this.id = id;

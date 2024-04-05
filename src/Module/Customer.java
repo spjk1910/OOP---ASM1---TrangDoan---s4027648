@@ -1,17 +1,16 @@
 package Module;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.Set;
 
 public abstract class Customer
 {
     private String id;
     private  String fullname;
     private InsuranceCard insuranceCard;
-    private ArrayList<Claim> claims;
+    private Set<Claim> claims;
 
     public Customer(String id, String fullname, InsuranceCard insuranceCard,
-                    ArrayList<Claim> claims)
+                    Set<Claim> claims)
     {
         this.id = id;
         this.fullname = fullname;

@@ -1,14 +1,16 @@
 package Module;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PolicyHolder extends Customer
 {
-    private ArrayList<Dependent> dependents;
+    private Set<Dependent> dependents;
+
     public PolicyHolder(String id, String fullName, InsuranceCard insuranceCard,
-                        ArrayList<Claim> claims, ArrayList<Dependent> dependents)
+                        Set<Claim> claims, Set<Dependent> dependents)
     {
         super(id, fullName, insuranceCard,claims);
-        this.dependents = dependents;
+        dependents = new HashSet<>();
     }
 }
