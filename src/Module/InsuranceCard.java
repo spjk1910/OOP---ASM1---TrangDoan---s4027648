@@ -16,4 +16,9 @@ public class InsuranceCard
         this.policyOwner = policyOwner;
         this.expirationDate = expirationDate;
     }
+
+    public String getCardNumber()
+    {
+        return cardNumber;
+    }
 }

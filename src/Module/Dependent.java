@@ -1,13 +1,19 @@
 package Module;
 
-import java.util.ArrayList;
+import java.util.Set;
+
 public class Dependent extends Customer
 {
     private PolicyHolder policyHolder;
     public Dependent(String id, String fullName, InsuranceCard insuranceCard,
-                     ArrayList<Claim> claims, PolicyHolder policyHolder)
+                     Set<Claim> claims, PolicyHolder policyHolder)
     {
         super(id, fullName, insuranceCard,claims);
         this.policyHolder = policyHolder;
+    }
+
+    public PolicyHolder getPolicyHolder()
+    {
+        return policyHolder;
     }
 }

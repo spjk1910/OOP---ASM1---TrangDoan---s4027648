@@ -13,4 +13,6 @@ public class PolicyHolder extends Customer
         super(id, fullName, insuranceCard,claims);
         dependents = new HashSet<>();
     }
+
+
 }

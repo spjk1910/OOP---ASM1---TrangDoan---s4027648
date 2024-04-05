@@ -17,4 +17,10 @@ public abstract class Customer
         this.insuranceCard = insuranceCard;
         this.claims = claims;
     }
+
+    public InsuranceCard getInsuranceCard()
+    {
+        return insuranceCard;
+    }
+
 }

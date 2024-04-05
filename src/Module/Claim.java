@@ -8,7 +8,7 @@ public class Claim
 {
     private String id;
     private Date claimDate;
-    private String insuredPerson;
+    private Customer insuredPerson;
     private String cardNumber;
     private Date examDate;
     private Set<String> documents;
@@ -16,7 +16,7 @@ public class Claim
     private ClaimStatus status;
     private ReceiverBankingInfo receiverBankingInfo;
 
-    public Claim(String id, Date claimDate, String insuredPerson, String cardNumber,
+    public Claim(String id, Date claimDate, Customer insuredPerson, String cardNumber,
                  Date examDate, Set<String> documents, double claimAmount,
                  ClaimStatus status, ReceiverBankingInfo receiverBankingInfo)
     {
@@ -29,5 +29,49 @@ public class Claim
         this.claimAmount = claimAmount;
         this.status = status;
         this.receiverBankingInfo = receiverBankingInfo;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public Date getClaimDate() {
+        return claimDate;
+    }
+
+    public Customer getInsuredPerson()
+    {
+        return insuredPerson;
+    }
+
+    public String getCardNumber()
+    {
+        return cardNumber;
+    }
+
+    public Date getExamDate()
+    {
+        return examDate;
+    }
+
+    public Set<String> getDocuments()
+    {
+        return documents;
+    }
+
+    public double getClaimAmount()
+    {
+        return claimAmount;
+    }
+
+    public ClaimStatus getStatus()
+    {
+        return status;
+    }
+
+    public ReceiverBankingInfo getReceiverBankingInfo()
+    {
+        return receiverBankingInfo;
     }
 }
