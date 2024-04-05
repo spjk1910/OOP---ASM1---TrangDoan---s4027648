@@ -186,6 +186,100 @@ public class ClaimView {
         System.out.println("Claim updated successfully!");
     }
 
+    public void deleteClaim()
+    {
+        System.out.println("~~ Deleting a claim ~~");
+
+        System.out.println("Enter the ID of the claim you want to delete:");
+        String claimId = sc.nextLine();
+
+        Claim existingClaim = controller.getClaim(claimId);
+
+        if (existingClaim == null)
+        {
+            System.out.println("Claim with ID " + claimId + " does not exist.");
+            return;
+        }
+
+        System.out.println("Are you sure you want to delete the following claim?");
+
+        printClaimDetails(existingClaim);
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Enter 1: Yes");
+        System.out.println("Enter 2: No");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        if (choice == 1)
+        {
+            controller.deleteClaim(claimId);
+            System.out.println("Claim deleted successfully!");
+        } else
+        {
+            System.out.println("You cancelled the Deletion!");
+        }
+    }
+
+    public void getSpecifiedClaim()
+    {
+        System.out.println("~~ Getting a specified claim ~~");
+
+        System.out.println("Enter the ID of the claim you want to get:");
+        String claimId = sc.nextLine();
+
+        Claim specifiedClaim = controller.getClaim(claimId);
+
+        if (specifiedClaim == null)
+        {
+            System.out.println("Claim with ID " + claimId + " does not exist.");
+        } else
+        {
+            printClaimDetails(specifiedClaim);
+        }
+    }
+
+    public void getAllClaims()
+    {
+        System.out.println("~~ Getting All Claims ~~");
+
+        Set<Claim> claims = controller.getAllClaims();
+
+        if (claims.isEmpty())
+        {
+            System.out.println("No claims found.");
+        } else
+        {
+            for (Claim claim : claims)
+            {
+                printClaimDetails(claim);
+                System.out.println("------------------------");
+            }
+        }
+    }
+    private void printClaimDetails(Claim claim)
+    {
+        System.out.println("Claim ID: " + claim.getId());
+        System.out.println("Claim Date: " + claim.getClaimDate());
+        System.out.println("Insured Person: " + claim.getInsuredPerson().getFullname());
+        System.out.println("Card Number: " + claim.getCardNumber());
+
+        System.out.println("List of Documents:");
+        for (String document : claim.getDocuments())
+        {
+            System.out.println("- " + document);
+        }
+
+        System.out.println("Claim Amount: " + claim.getClaimAmount());
+        System.out.println("Claim Status: " + claim.getStatus());
+
+        System.out.println("Receiver Banking Info: ");
+        ReceiverBankingInfo receiverInfo = claim.getReceiverBankingInfo();
+        System.out.println("Bank Name: " + receiverInfo.getBankName());
+        System.out.println("Owner Name: " + receiverInfo.getOwnerName());
+        System.out.println("Account Number: " + receiverInfo.getNumber());
+
+    }
     private Set<String> gatherDocuments(String claimId, String cardNumber)
     {
         Set<String> documents = new HashSet<>();

@@ -4,6 +4,8 @@ import Module.Customer;
 import Module.ClaimProcessManager;
 import Module.Claim;
 
+import java.util.Set;
+
 public class ClaimController
 {
     private ClaimProcessManager manage;
@@ -23,5 +25,16 @@ public class ClaimController
     public Claim getClaim(String id)
     {
         return manage.getOne(id);
+    }
+    public void deleteClaim(String claimId) {
+        manage.delete(claimId);
+    }
+    public Customer getCustomerById(String id) {
+        return manage.getCustomerById(id);
+    }
+
+    public Set<Claim> getAllClaims()
+    {
+        return manage.getAll();
     }
 }

@@ -27,4 +27,9 @@ public abstract class Customer
     {
         return id;
     }
+
+    public String getFullname()
+    {
+        return fullname;
+    }
 }

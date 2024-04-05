@@ -30,7 +30,6 @@ public class ClaimProcessManagerImplement implements ClaimProcessManager
     {
         claims.remove(id);
     }
-
     @Override
     public Claim getOne(String id)
     {
