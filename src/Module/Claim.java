@@ -12,6 +12,7 @@ public class Claim
     private String cardNumber;
     private Date examDate;
     private ArrayList<String> documents;
+    private double claimAmount;
     private ClaimStatus status;
     private ReceiverBankingInfo receiverBankingInfo;
 
