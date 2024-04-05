@@ -23,4 +23,8 @@ public abstract class Customer
         return insuranceCard;
     }
 
+    public String getId()
+    {
+        return id;
+    }
 }

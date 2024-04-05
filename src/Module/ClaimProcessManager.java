@@ -8,4 +8,5 @@ public interface ClaimProcessManager
     void delete(String id);
     Claim getOne(String id);
     Set<Claim> getAll();
+    Customer getCustomerById(String id);
 }
