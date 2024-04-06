@@ -75,4 +75,7 @@ public class Claim
         return receiverBankingInfo;
     }
 
+    public void setInsuredPerson(Customer insuredPerson) {
+        this.insuredPerson = insuredPerson;
+    }
 }

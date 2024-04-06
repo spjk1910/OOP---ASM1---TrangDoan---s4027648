@@ -50,6 +50,12 @@ public class ClaimProcessManagerImplement implements ClaimProcessManager
 
         return sortedClaims;
     }
+
+    @Override
+    public Set<Customer> getAll_C()
+    {
+       return customers;
+    }
     @Override
     public Customer getCustomerById(String id)
     {
@@ -66,4 +72,5 @@ public class ClaimProcessManagerImplement implements ClaimProcessManager
     {
         customers.add(customer);
     }
+
 }

@@ -57,15 +57,7 @@ public class ClaimView
         } while (insuredPerson == null);
 
         String cardNumber = null;
-        if (insuredPerson instanceof PolicyHolder)
-        {
-            PolicyHolder policyHolder = (PolicyHolder) insuredPerson;
-            cardNumber = policyHolder.getInsuranceCard().getCardNumber();
-        } else if (insuredPerson instanceof Dependent)
-        {
-            Dependent dependent = (Dependent) insuredPerson;
-            cardNumber = dependent.getPolicyHolder().getInsuranceCard().getCardNumber();
-        }
+       cardNumber = insuredPerson.getInsuranceCard().getCardNumber();
 
         System.out.print("Enter Examination Date (format dd/mm/yyyy): ");
         String examDateStr = sc.nextLine();
@@ -132,20 +124,18 @@ public class ClaimView
         String claimDateStr = sc.nextLine();
         Utils.Date claimDate = new Utils.Date(claimDateStr);
 
-        System.out.print("Enter Insured Person's ID: ");
-        String insuredPersonId = sc.nextLine();
-        Customer insuredPerson = findCustomerById(insuredPersonId);
+        Customer insuredPerson;
+        do
+        {
+            System.out.print("Enter Insured Person's ID: ");
+            String insuredPersonId = sc.nextLine();
+            insuredPerson = findCustomerById(insuredPersonId);
+            if (insuredPerson == null) System.out.println("Insured Person is not exist!");
+        } while (insuredPerson == null);
 
         String cardNumber = null;
-        if (insuredPerson instanceof PolicyHolder)
-        {
-            PolicyHolder policyHolder = (PolicyHolder) insuredPerson;
-            cardNumber = policyHolder.getInsuranceCard().getCardNumber();
-        } else if (insuredPerson instanceof Dependent)
-        {
-            Dependent dependent = (Dependent) insuredPerson;
-            cardNumber = dependent.getPolicyHolder().getInsuranceCard().getCardNumber();
-        }
+
+        cardNumber = insuredPerson.getInsuranceCard().getCardNumber();
 
         System.out.print("Enter Examination Date (format dd/mm/yyyy): ");
         String examDateStr = sc.nextLine();
@@ -161,11 +151,11 @@ public class ClaimView
         System.out.print("Enter a Claim status (New,Processing,Done): ");
         String status_str = sc.nextLine();
         ClaimStatus status;
-        if (status_str == "New")
+        if (status_str.equalsIgnoreCase("New"))
         {
             status = ClaimStatus.New;
         }
-        else if (status_str == "Processing")
+        else if (status_str.equalsIgnoreCase("Processing"))
         {
             status = ClaimStatus.Processing;
         }else
@@ -282,9 +272,10 @@ public class ClaimView
         System.out.println("Card Number: " + claim.getCardNumber());
 
         System.out.println("List of Documents:");
-        for (String document : claim.getDocuments())
-        {
-            System.out.println("- " + document);
+        if (claim.getDocuments() != null) {
+            for (String document : claim.getDocuments()) {
+                System.out.println("- " + document);
+            }
         }
 
         System.out.println("Claim Amount: " + claim.getClaimAmount());
