@@ -20,5 +20,12 @@ public class Date
         this.year = year;
     }
 
+    @Override
+    public String toString()
+    {
+        String date = day + "/" + month + "/" + year;
+        return date;
+    }
+
 
 }

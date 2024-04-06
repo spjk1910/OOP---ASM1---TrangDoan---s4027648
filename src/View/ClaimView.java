@@ -13,23 +13,26 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.HashSet;
 
-public class ClaimView {
+public class ClaimView
+{
     private ClaimController controller;
     private Scanner sc;
 
-    public ClaimView(ClaimController controller) {
+    public ClaimView(ClaimController controller)
+    {
         this.controller = controller;
         this.sc = new Scanner(System.in);
     }
 
-    public void displayMenu() {
+    public void displayMenu()
+    {
         System.out.println("Welcome, admin!");
         System.out.println("~~~ Claim Process Manager ~~~");
         System.out.println("Enter 1: Add Claim");
         System.out.println("Enter 2: Update Claim");
         System.out.println("Enter 3: Delete Claim");
-        System.out.println("Enter 4: View a specified Claim");
-        System.out.println("Enter 5: View All Claims");
+        System.out.println("Enter 4: Get a specified Claim");
+        System.out.println("Enter 5: Get All Claims");
         System.out.println("Enter 0: Exit");
     }
 
@@ -37,16 +40,21 @@ public class ClaimView {
     {
         System.out.println("~~ Creating a new claim ~~");
 
-        System.out.println("Enter Claim ID: ");
+        System.out.print("Enter Claim ID: ");
         String id = sc.nextLine();
 
-        System.out.println("Enter Claim Date (format dd/mm/yyyy): ");
+        System.out.print("Enter Claim Date (format dd/mm/yyyy): ");
         String claimDateStr = sc.nextLine();
         Utils.Date claimDate = new Utils.Date(claimDateStr);
 
-        System.out.println("Enter Insured Person's ID: ");
-        String insuredPersonId = sc.nextLine();
-        Customer insuredPerson = findCustomerById(insuredPersonId);
+        Customer insuredPerson;
+        do
+        {
+            System.out.print("Enter Insured Person's ID: ");
+            String insuredPersonId = sc.nextLine();
+            insuredPerson = findCustomerById(insuredPersonId);
+            if (insuredPerson == null) System.out.println("Insured Person is not exist!");
+        } while (insuredPerson == null);
 
         String cardNumber = null;
         if (insuredPerson instanceof PolicyHolder)
@@ -59,13 +67,13 @@ public class ClaimView {
             cardNumber = dependent.getPolicyHolder().getInsuranceCard().getCardNumber();
         }
 
-        System.out.println("Enter Examination Date (format dd/mm/yyyy): ");
+        System.out.print("Enter Examination Date (format dd/mm/yyyy): ");
         String examDateStr = sc.nextLine();
         Utils.Date examDate = new Date(examDateStr);
 
         Set<String> documents = gatherDocuments(id, cardNumber);
 
-        System.out.println("Enter Claim Amount: ");
+        System.out.print("Enter Claim Amount: ");
         double claimAmount = sc.nextDouble();
 
         sc.nextLine();
@@ -102,7 +110,7 @@ public class ClaimView {
     {
         System.out.println("~~ Updating a claim ~~");
 
-        System.out.println("Enter the ID of the claim you want to update: ");
+        System.out.print("Enter the ID of the claim you want to update: ");
         String claimId = sc.nextLine();
         Claim existingClaim = controller.getClaim(claimId);
 
@@ -112,14 +120,16 @@ public class ClaimView {
             return;
         }
 
-        System.out.println("Enter Claim ID: ");
+        controller.deleteClaim(existingClaim.getId());
+
+        System.out.print("Enter Claim ID: ");
         String id = sc.nextLine();
 
-        System.out.println("Enter Claim Date (format dd/mm/yyyy): ");
+        System.out.print("Enter Claim Date (format dd/mm/yyyy): ");
         String claimDateStr = sc.nextLine();
         Utils.Date claimDate = new Utils.Date(claimDateStr);
 
-        System.out.println("Enter Insured Person's ID: ");
+        System.out.print("Enter Insured Person's ID: ");
         String insuredPersonId = sc.nextLine();
         Customer insuredPerson = findCustomerById(insuredPersonId);
 
@@ -134,29 +144,30 @@ public class ClaimView {
             cardNumber = dependent.getPolicyHolder().getInsuranceCard().getCardNumber();
         }
 
-        System.out.println("Enter Examination Date (format dd/mm/yyyy): ");
+        System.out.print("Enter Examination Date (format dd/mm/yyyy): ");
         String examDateStr = sc.nextLine();
         Utils.Date examDate = new Date(examDateStr);
 
         Set<String> documents = gatherDocuments(id, cardNumber);
 
-        System.out.println("Enter Claim Amount: ");
+        System.out.print("Enter Claim Amount: ");
         double claimAmount = sc.nextDouble();
 
         sc.nextLine();
 
-        System.out.println("Enter a Claim status (New,Processing,Done): ");
+        System.out.print("Enter a Claim status (New,Processing,Done): ");
         String status_str = sc.nextLine();
+        ClaimStatus status;
         if (status_str == "New")
         {
-            ClaimStatus status = ClaimStatus.New;
+            status = ClaimStatus.New;
         }
         else if (status_str == "Processing")
         {
-            ClaimStatus status = ClaimStatus.Processing;
+            status = ClaimStatus.Processing;
         }else
         {
-            ClaimStatus status = ClaimStatus.Done;
+            status = ClaimStatus.Done;
         }
 
         System.out.println("Enter Receiver Banking Info:");
@@ -171,15 +182,15 @@ public class ClaimView {
 
         Claim updatedClaim = new Claim
                 (
-                existingClaim.getId(),
-                claimDate,
-                existingClaim.getInsuredPerson(),
-                existingClaim.getCardNumber(),
-                existingClaim.getExamDate(),
-                existingClaim.getDocuments(),
-                existingClaim.getClaimAmount(),
-                existingClaim.getStatus(),
-                existingClaim.getReceiverBankingInfo()
+                        id,
+                        claimDate,
+                        insuredPerson,
+                        cardNumber,
+                        examDate,
+                        documents,
+                        claimAmount,
+                        status,
+                        receiverBankingInfo
         );
 
         controller.updateClaim(updatedClaim);
@@ -190,7 +201,7 @@ public class ClaimView {
     {
         System.out.println("~~ Deleting a claim ~~");
 
-        System.out.println("Enter the ID of the claim you want to delete:");
+        System.out.print("Enter the ID of the claim you want to delete:");
         String claimId = sc.nextLine();
 
         Claim existingClaim = controller.getClaim(claimId);
@@ -208,6 +219,7 @@ public class ClaimView {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("Enter 1: Yes");
         System.out.println("Enter 2: No");
+        System.out.print("Your choice: ");
         int choice = sc.nextInt();
         sc.nextLine();
 
@@ -225,7 +237,7 @@ public class ClaimView {
     {
         System.out.println("~~ Getting a specified claim ~~");
 
-        System.out.println("Enter the ID of the claim you want to get:");
+        System.out.print("Enter the ID of the claim you want to get:");
         String claimId = sc.nextLine();
 
         Claim specifiedClaim = controller.getClaim(claimId);
@@ -260,7 +272,7 @@ public class ClaimView {
     private void printClaimDetails(Claim claim)
     {
         System.out.println("Claim ID: " + claim.getId());
-        System.out.println("Claim Date: " + claim.getClaimDate());
+        System.out.println("Claim Date: " + claim.getClaimDate().toString());
         System.out.println("Insured Person: " + claim.getInsuredPerson().getFullname());
         System.out.println("Card Number: " + claim.getCardNumber());
 
@@ -284,12 +296,12 @@ public class ClaimView {
     {
         Set<String> documents = new HashSet<>();
 
-        System.out.println("Enter the number of documents:");
+        System.out.print("Enter the number of documents:");
         int n = sc.nextInt();
         sc.nextLine();
 
         for (int i = 1; i <= n; i++) {
-            System.out.println("Enter Document Name for Document " + i + ":");
+            System.out.print("Enter Document Name for Document " + i + ":");
             String documentName = sc.nextLine();
             String documentFileName = claimId + "_" + cardNumber + "_" + documentName + ".pdf";
             documents.add(documentFileName);
