@@ -74,4 +74,5 @@ public class Claim
     {
         return receiverBankingInfo;
     }
+
 }

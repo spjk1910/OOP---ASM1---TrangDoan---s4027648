@@ -104,6 +104,7 @@ public class ClaimView
 
         controller.addClaim(newClaim);
         System.out.println("Claim added successfully!");
+        insuredPerson.addClaim(newClaim);
     }
 
     public void updateClaim()
@@ -120,7 +121,9 @@ public class ClaimView
             return;
         }
 
-        controller.deleteClaim(existingClaim.getId());
+        Customer tmp = findCustomerById(existingClaim.getInsuredPerson().getId());
+        tmp.removeClaim(existingClaim);
+        controller.deleteClaim(claimId);
 
         System.out.print("Enter Claim ID: ");
         String id = sc.nextLine();
@@ -195,6 +198,7 @@ public class ClaimView
 
         controller.updateClaim(updatedClaim);
         System.out.println("Claim updated successfully!");
+        insuredPerson.addClaim(updatedClaim);
     }
 
     public void deleteClaim()
@@ -225,6 +229,7 @@ public class ClaimView
 
         if (choice == 1)
         {
+            findCustomerById(existingClaim.getInsuredPerson().getId()).removeClaim(existingClaim);
             controller.deleteClaim(claimId);
             System.out.println("Claim deleted successfully!");
         } else

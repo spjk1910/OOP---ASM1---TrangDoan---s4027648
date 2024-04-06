@@ -11,8 +11,7 @@ public class PolicyHolder extends Customer
                         Set<Claim> claims, Set<Dependent> dependents)
     {
         super(id, fullName, insuranceCard,claims);
-        dependents = new HashSet<>();
+        this.dependents = new HashSet<>(dependents);
     }
-
 
 }

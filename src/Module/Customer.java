@@ -1,5 +1,6 @@
 package Module;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Customer
@@ -9,13 +10,11 @@ public abstract class Customer
     private InsuranceCard insuranceCard;
     private Set<Claim> claims;
 
-    public Customer(String id, String fullname, InsuranceCard insuranceCard,
-                    Set<Claim> claims)
-    {
+    public Customer(String id, String fullname, InsuranceCard insuranceCard, Set<Claim> claims) {
         this.id = id;
         this.fullname = fullname;
         this.insuranceCard = insuranceCard;
-        this.claims = claims;
+        this.claims = claims != null ? claims : new HashSet<>();
     }
 
     public InsuranceCard getInsuranceCard()
@@ -32,4 +31,17 @@ public abstract class Customer
     {
         return fullname;
     }
+
+    public void addClaim(Claim claim)
+    {
+        claims.add(claim);
+    }
+
+    public void  removeClaim(Claim claim) {claims.remove(claim);}
+
+    public Set<Claim> getClaims()
+    {
+        return claims;
+    }
+
 }

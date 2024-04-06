@@ -14,10 +14,9 @@ public class ClaimController
     private Customer model;
     private ClaimView view;
 
-    public ClaimController(ClaimProcessManager manage, ClaimView view,Customer model)
+    public ClaimController(ClaimProcessManager manage, ClaimView view)
     {
         this.manage = manage;
-        this.model = model;
         this.view = view;
     }
 
