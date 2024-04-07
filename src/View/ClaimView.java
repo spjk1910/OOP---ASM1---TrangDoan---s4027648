@@ -1,5 +1,10 @@
 package View;
 
+/**
+ * @author Doan Phan Thuy Trang - s4027648
+ */
+
+
 import Module.Claim;
 import Module.Customer;
 import Module.Dependent;

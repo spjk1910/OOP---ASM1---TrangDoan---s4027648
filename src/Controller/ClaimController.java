@@ -1,5 +1,9 @@
 package Controller;
 
+/**
+ * @author Doan Phan Thuy Trang - s4027648
+ */
+
 import Module.Customer;
 import Module.ClaimProcessManager;
 import Module.ClaimProcessManagerImplement;

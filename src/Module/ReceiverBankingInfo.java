@@ -1,5 +1,10 @@
     package Module;
 
+    /**
+     * @author Doan Phan Thuy Trang - s4027648
+     */
+
+
     public class ReceiverBankingInfo
     {
         private String bankName;
