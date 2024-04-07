@@ -14,10 +14,6 @@ public class PolicyHolder extends Customer
         this.dependents = new HashSet<>(dependents);
     }
 
-    public void setDependents(Set<Dependent> dependents) {
-        this.dependents = dependents;
-    }
-
     public Set<Dependent> getDependents() {
         return dependents;
     }
